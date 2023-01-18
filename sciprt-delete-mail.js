@@ -1,3 +1,4 @@
+let countMailDeleted = 0;
 const spamMails = [
   "discord",
   "riot games",
@@ -28,6 +29,7 @@ const deleteMails = () => {
   let noHasOld = btnNext.getAttribute("aria-disabled");
   if (noHasOld == "true") {
     console.log("End handler");
+    console.log(`Deleted ${countMailDeleted} mails`);
     return;
   }
   const Mails = document.querySelectorAll("tr.zA");
@@ -38,12 +40,14 @@ const deleteMails = () => {
     if (checkInclude(spamMailTitle)) {
       const checkbox = item.querySelector("div.oZ-jc.T-Jo.J-J5-Ji");
       hasChecked = true;
+      countMailDeleted++;
       checkbox.click();
     }
   });
 
   if (hasChecked) {
     fireEvent(btnDelete);
+    console.log(`Deleted ${countMailDeleted} mails`)
     console.log("Next");
     setTimeout(() => {
       deleteMails();
